@@ -1,0 +1,13 @@
+{
+     "name": "cosmo-engineering-marketplace",
+     "owner": {
+       "name": "Huynh Trung Kiet - Cosmo Engineering"
+     },
+     "plugins": [
+       {
+         "name": "cosmo-engineering",
+         "source": "./plugins/cosmo-engineering",
+         "description": "Chao gia gia cong, tu van khop noi & ky thuat DHP, de xuat design concept du an co khi (VI/EN)."
+       }
+     ]
+   }
