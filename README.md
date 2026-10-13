@@ -1,6 +1,9 @@
 # Cosmo Engineering Marketplace
 
-Marketplace cá nhân chứa plugin **cosmo-engineering** (3 skill kỹ thuật cơ khí).
+Marketplace cá nhân chứa plugin **cosmo-engineering** (4 skill kỹ thuật cơ khí + 4 subagent) và bộ chạy **multi-agent** bằng Python.
+
+- Plugin: `plugins/cosmo-engineering/` — skill `machining-quotation`, `coupling-dhp-advisory`, `mechanical-project-concept`, `project-pipeline` + agents PM / Design / Cost / QA.
+- Multi-agent headless: `multi-agent/` — `python -m cosmo_agents run --brief ...` (xem `multi-agent/README.md`).
 
 ## Cài vào Claude (claude.ai / app)
 
@@ -33,9 +36,15 @@ cosmo-engineering-plugin/
     └── cosmo-engineering/
         ├── .claude-plugin/
         │   └── plugin.json             # manifest plugin
+        ├── agents/                     # 4 subagent: project-manager, design-engineer, cost-analyst, qa-auditor
         ├── skills/
         │   ├── machining-quotation/
         │   ├── coupling-dhp-advisory/
-        │   └── mechanical-project-concept/
+        │   ├── mechanical-project-concept/
+        │   └── project-pipeline/       # orchestrator multi-agent (PM → Design → Cost → QA → loop)
         └── README.md
+multi-agent/                            # bộ chạy Python dùng chung agents/*.md (Claude API)
+├── cosmo_agents/                       # config, prompts, context, llm, pipeline, cli
+├── tests/                              # test không cần API key
+└── README.md
 ```
