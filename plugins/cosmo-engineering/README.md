@@ -1,6 +1,6 @@
 # Cosmo Engineering — Plugin kỹ thuật cơ khí
 
-Bộ 3 skill dùng nội bộ cho Cosmo Engineering / DHP. Song ngữ VI/EN, khớp ngôn ngữ theo yêu cầu đến.
+Bộ 4 skill + 4 subagent dùng nội bộ cho Cosmo Engineering / DHP. Song ngữ VI/EN, khớp ngôn ngữ theo yêu cầu đến.
 
 ## Các skill
 
@@ -8,6 +8,19 @@ Bộ 3 skill dùng nội bộ cho Cosmo Engineering / DHP. Song ngữ VI/EN, kh�
   - Điền số thật vào `skills/machining-quotation/references/rate-card.md` để chạy ra giá đầy đủ.
 - **coupling-dhp-advisory** — Tư vấn khớp nối (gear, Cardan/các đăng, B-Flex, HTD belt, rigid) và kỹ thuật xưởng DHP (WPS/hàn, chọn vật liệu, tấm cách nhiệt, sửa chữa drivetrain, NDT).
 - **mechanical-project-concept** — Đề xuất design-concept dự án cơ khí: phân tích yêu cầu → phương án → BOM sơ bộ → kế hoạch theo giai đoạn → timeline → dự toán, gửi khách trước khi thiết kế chi tiết.
+
+- **project-pipeline** — Chạy **multi-agent** trọn gói từ đề bài: Project Manager lên kế hoạch → Design Engineer thiết kế → Cost Analyst tính giá → QA/QC Auditor phản biện, tự lặp sửa lỗi tới khi QA PASS, rồi PM tổng hợp bản gửi khách. Mỗi bước ghi ra `pipeline/<dự án>/0N-*.md`.
+
+## Subagents (`agents/`)
+
+| Agent | Vai trò |
+|---|---|
+| `project-manager` | Agent 1 — chia task, đặt tiêu chí nghiệm thu, tổng hợp bàn giao |
+| `design-engineer` | Agent 2 — vật liệu, tính toán, route máy DHP, BOM, DXF (dùng kiến thức coupling-dhp-advisory + mechanical-project-concept) |
+| `cost-analyst` | Agent 3 — giá vốn → margin → giá bán, lead time (dùng machining-quotation + rate card) |
+| `qa-auditor` | Agent 4 — phản biện độc lập, `VERDICT: PASS|REVISE` + findings có địa chỉ |
+
+Gọi trực tiếp: `@agent-cosmo-engineering:qa-auditor soát giúp báo giá này`. Subagent chạy trong Claude Code và Cowork; **claude.ai chat chỉ nạp skill** (khi đó `project-pipeline` tự đóng vai tuần tự). Chạy headless bằng Python: xem `multi-agent/README.md` ở gốc repo.
 
 ## Dùng thế nào
 
