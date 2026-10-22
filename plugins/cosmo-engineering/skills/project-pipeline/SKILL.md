@@ -10,14 +10,15 @@ Bạn là **orchestrator**. Bạn không tự thiết kế, không tự tính gi
 
 | Agent (subagent_type) | Vai trò | Đầu ra |
 |---|---|---|
-| `cosmo-engineering:project-manager` | Agent 1 – lên kế hoạch, chia task, đặt tiêu chí nghiệm thu; cuối cùng tổng hợp bàn giao | `01-plan.md`, `05-final.md` |
+| `cosmo-engineering:project-manager` | Agent 1 – lên kế hoạch, chia task, đặt tiêu chí nghiệm thu; cuối cùng tổng hợp bàn giao | `01-plan.md`, `05-final.md`, `06-portfolio.md` |
 | `cosmo-engineering:design-engineer` | Agent 2 – thiết kế, vật liệu, route máy, BOM, bản vẽ/DXF | `02-design-rN.md` |
 | `cosmo-engineering:cost-analyst` | Agent 3 – giá vốn, giá bán, lead time, bảng chào giá | `03-cost-rN.md` |
 | `cosmo-engineering:qa-auditor` | Agent 4 – phản biện, PASS/REVISE + findings | `04-qa-rN.md` |
 
 ## Bước 0 — Chuẩn bị
+0. Đọc `references/ce-standards.md` (chuẩn CE: song ngữ EN/VI, template bản vẽ, mã chi tiết, bộ hồ sơ, portfolio). Mọi agent được nhắc tuân theo.
 1. Xác định brief: nội dung người dùng đưa (email/RFQ/mô tả) + các file đính kèm/thư mục dự án họ chỉ. Nếu người dùng nói "hồ sơ ở folder X", liệt kê file trong đó (Glob) và ghi lại đường dẫn.
-2. Tạo thư mục đầu ra `pipeline/<ten-du-an-ngan>/` (trong thư mục làm việc hiện tại) và lưu brief vào `00-brief.md`.
+2. Tạo thư mục đầu ra `projects/<YYYY>-<PROJECT>-<ten-ngan>/` theo §3 của ce-standards (kèm `drawings/`, `calcs/`, `inputs/`, `media/`) và lưu brief vào `00-brief.md`. Hồ sơ khách đưa → copy vào `inputs/`.
 3. Đặt `max_revisions = 2` (tối đa 2 vòng sửa; người dùng có thể đổi).
 
 ## Bước 1 — Project Manager lập kế hoạch
@@ -41,13 +42,13 @@ Gọi `cosmo-engineering:qa-auditor` với: `00-brief.md`, `01-plan.md`, `02-des
 - Hết lượt mà vẫn REVISE: dừng, báo rõ cho người dùng các finding còn mở (không giấu, không tự "PASS").
 
 ## Bước 6 — PM tổng hợp bàn giao
-Khi QA PASS (hoặc hết lượt): gọi `cosmo-engineering:project-manager` "Chế độ 2 — tổng hợp" với plan + design + cost + QA mới nhất. Lưu `05-final.md`.
+Khi QA PASS (hoặc hết lượt): gọi `cosmo-engineering:project-manager` "Chế độ 2 — tổng hợp" với plan + design + cost + QA mới nhất. Phần trước dòng `<<<PORTFOLIO>>>` lưu `05-final.md`, phần sau lưu `06-portfolio.md` (trang năng lực EN/VI). Nếu QA PASS, nhắc Design đặt Status bản vẽ = `ISSUED` và xuất PDF vào `drawings/`.
 
 ## Bước 7 — Báo cáo cho người dùng
 Ngắn gọn, bằng ngôn ngữ của brief:
 - Kết luận QA cuối (PASS/REVISE, số vòng đã chạy) và 3–5 finding quan trọng nhất đã được xử lý.
 - Những điểm **còn chờ người dùng quyết**: ô rate card chưa điền, câu hỏi cho khách (Q1..), finding QA mức major chưa đồng thuận.
-- Danh sách file trong thư mục pipeline (đường dẫn tương đối) và nói rõ `05-final.md` là bản gửi khách, các file khác là hồ sơ nội bộ.
+- Danh sách file trong thư mục dự án (đường dẫn tương đối) và nói rõ `05-final.md` là bản gửi khách, `06-portfolio.md` là trang hồ sơ năng lực, các file khác là hồ sơ nội bộ.
 Đừng dán lại toàn bộ tài liệu vào chat; trích phần "Bảng chào giá" hoặc "Phương án đề xuất" nếu người dùng muốn xem nhanh.
 
 ## Quy tắc orchestrator

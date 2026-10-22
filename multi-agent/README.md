@@ -36,7 +36,7 @@ Có **hai cách chạy** cùng một bộ agent:
 | **A. Trong Claude Code / Cowork** (skill `project-pipeline` + 4 subagent của plugin) | Làm tương tác, muốn xem từng bước, agent có thể tự chạy script sinh DXF | Cài plugin như README gốc. Lưu ý: **claude.ai chat chỉ nạp skill, không nạp subagent** — ở đó skill sẽ tự đóng vai tuần tự (chậm hơn, cùng một lượt chat). |
 | **B. Bộ chạy Python này** (`python -m cosmo_agents run`) | Chạy không cần ngồi canh, nhiều dự án, log token/chi phí, tích hợp vào quy trình khác | Python ≥ 3.10, API key Anthropic |
 
-Cả hai dùng **cùng một nguồn prompt**: `plugins/cosmo-engineering/agents/*.md`. Sửa cách một agent làm việc ở đó là cả hai cách đều đổi theo.
+Cả hai dùng **cùng một nguồn prompt**: `plugins/cosmo-engineering/agents/*.md`, và cùng **chuẩn CE** `skills/project-pipeline/references/ce-standards.md` (song ngữ EN/VI, template bản vẽ CE, mã chi tiết, bộ hồ sơ dự án, trang portfolio). Sửa cách một agent làm việc ở đó là cả hai cách đều đổi theo.
 
 ## 1. Cài đặt (cách B)
 
@@ -55,7 +55,7 @@ python -m cosmo_agents run --brief examples/brief-example.md --project-dir /duon
 
 # Kết quả nằm trong pipeline/<ngày>-brief-example/
 #   00-brief.md  01-plan.md  02-design-r0.md  03-cost-r0.md  04-qa-r0.md
-#   (02/03/04-*-r1.md nếu có vòng sửa)  05-final.md  run.json (token, lịch sử PASS/REVISE)
+#   (02/03/04-*-r1.md nếu có vòng sửa)  05-final.md  06-portfolio.md (trang năng lực EN/VI)  run.json
 ```
 
 Tùy chọn:

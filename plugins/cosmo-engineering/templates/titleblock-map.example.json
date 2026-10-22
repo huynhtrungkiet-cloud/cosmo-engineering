@@ -1,0 +1,10 @@
+{
+  "_comment": "Copy to titleblock-map.json and set the real tags printed by fill_titleblock.py --list",
+  "Title": "GEN-TITLE-NAME",
+  "Part Number": "GEN-TITLE-DWG",
+  "Project": "GEN-TITLE-PROJECT",
+  "Material where not indicated": "GEN-TITLE-MAT",
+  "Scale": "GEN-TITLE-SCA",
+  "Sheet": "GEN-TITLE-SHEET",
+  "Status": "GEN-TITLE-STATUS"
+}

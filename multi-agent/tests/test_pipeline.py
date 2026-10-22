@@ -33,6 +33,8 @@ class FakeLLM:
     def complete(self, *, agent, system, user, settings):
         self.calls.append((agent, user))
         assert "Cosmo Engineering" in system, "system prompt phải nạp từ agents/*.md"
+        if agent == "project-manager" and "Chế độ 2" in user:
+            return f"<final #{len(self.calls)}>\n<<<PORTFOLIO>>>\n# FFM — Portfolio"
         return f"<{agent} output #{len(self.calls)}>"
 
     def complete_structured(self, *, agent, system, user, settings, schema):
@@ -71,6 +73,7 @@ class PipelineTests(unittest.TestCase):
             self.assertFalse(sp.startswith("---"), "frontmatter phải bị bỏ")
             self.assertIn("Cosmo Engineering", sp)
         self.assertIn("Rate Card", build_system_prompt(self.cfg, "cost-analyst"))  # skill knowledge attached
+        self.assertIn("AC-STD-1", build_system_prompt(self.cfg, "design-engineer"))  # CE standards attached to all
         self.assertEqual(strip_frontmatter("---\nname: x\n---\nbody"), "body")
 
     def test_revise_then_pass(self):
@@ -102,8 +105,10 @@ class PipelineTests(unittest.TestCase):
         self.assertEqual(
             names,
             ["00-brief.md", "01-plan.md", "02-design-r0.md", "02-design-r1.md", "03-cost-r0.md",
-             "03-cost-r1.md", "04-qa-r0.md", "04-qa-r1.md", "05-final.md", "run.json"],
+             "03-cost-r1.md", "04-qa-r0.md", "04-qa-r1.md", "05-final.md", "06-portfolio.md", "run.json"],
         )
+        self.assertEqual((self.out / "06-portfolio.md").read_text(encoding="utf-8"), "# FFM — Portfolio")
+        self.assertNotIn("<<<PORTFOLIO>>>", (self.out / "05-final.md").read_text(encoding="utf-8"))
         run = json.loads((self.out / "run.json").read_text(encoding="utf-8"))
         self.assertEqual(run["history"], [{"rev": 0, "verdict": "REVISE", "findings": 2}, {"rev": 1, "verdict": "PASS", "findings": 0}])
         self.assertTrue((self.out / "04-qa-r0.md").read_text(encoding="utf-8").startswith("VERDICT: REVISE"))
