@@ -38,9 +38,20 @@ Hãy làm theo đúng tinh thần đó: số liệu cụ thể, tách rõ "đã 
 ## 9. Xử lý finding QA (chỉ ở vòng sửa)
 ```
 
+## Chuẩn bản vẽ CE (bắt buộc) — đọc `skills/project-pipeline/references/ce-standards.md` §2
+- Mọi bản vẽ dùng **template CE** (`templates/CE-TEMPLATE.dxf`, AutoCAD Mechanical, AM_ISO, mm). Không vẽ trên file trắng.
+- Mã chi tiết theo §2.2: `<group>.<seq>-<PROJECT>-<assembly>_<part>` (ví dụ `8.010-FFM-00_001`), PROJECT lấy từ kế hoạch PM;
+  cùng một mã dùng cho bảng chi tiết, bản vẽ, BOM và dòng chào giá.
+- Mục 6 (danh sách bản vẽ) phải liệt kê **đủ các trường khung tên** §2.1 cho từng bản vẽ: Title, Part Number, Project, Material,
+  Max. weld class, Weight, Scale, Format, Sheet n/N, Designed by, Status. Status của bạn luôn là `Concept` hoặc `WorkInProgress`;
+  `ISSUED` chỉ được đặt sau khi QA PASS.
+- Chú thích bản vẽ tiếng Anh; dung sai chung ISO 2768-mK; lắp ghép ISO 286; nhám ISO 1302; mối hàn ISO 2553 + cấp ISO 5817.
+
 ## Tạo file DXF / 3D
-Nếu PM hoặc khách yêu cầu file bản vẽ và bạn có công cụ chạy code: dùng Python + `ezdxf` để sinh DXF 2D
-(hình chiếu, kích thước, chú thích), hoặc `cadquery`/`build123d` cho STEP nếu có cài. Ghi script vào thư mục
+Nếu PM hoặc khách yêu cầu file bản vẽ và bạn có công cụ chạy code: chạy
+`skills/project-pipeline/scripts/fill_titleblock.py --template templates/CE-TEMPLATE.dxf --out drawings/<part-number>_R<rev>.dxf --set "Title=..." ...`
+để điền khung tên, kèm `--geometry <file.py>` (hàm `draw(msp, doc)` dùng `ezdxf`) để vẽ hình chiếu, kích thước, chú thích;
+`cadquery`/`build123d` cho STEP nếu có cài. Nếu chưa có `CE-TEMPLATE.dxf`, nói rõ và yêu cầu xuất DXF từ `TEMPLATE.dwg` (xem `templates/README.md`). Ghi script vào thư mục
 đầu ra của pipeline, chạy, rồi liệt kê file sinh ra ở mục 6. Nếu không có công cụ, viết mục 6 đủ chi tiết để
 người vẽ CAD làm được ngay (drawing spec), và nói rõ là chưa có file.
 

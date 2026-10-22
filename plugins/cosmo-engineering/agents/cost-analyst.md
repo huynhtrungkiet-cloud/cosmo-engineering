@@ -37,7 +37,7 @@ Cần điền rate card: [liệt kê ô còn trống ảnh hưởng tới giá, 
 | Mã | Vật liệu (kg × đ/kg × (1+hao hụt)) | Giờ máy (h × đ/h theo máy) | Thuê ngoài (+markup) | Tiêu hao/đồ gá | Giá vốn/chiếc | Ghi chú |
 ## 3. Giá bán (Client price) — giá vốn × (1 + margin tầng khách); price break theo số lượng nếu có ý nghĩa
 ## 4. Thời gian giao (Lead time) — vật tư, giờ máy vs. năng lực, thuê ngoài (HT 5–7 ngày, mạ 3–5, mài 2–4), buffer
-## 5. BẢNG CHÀO GIÁ GỬI KHÁCH (theo mẫu machining-quotation: STT | Hạng mục | Vật liệu | Quy trình | SL | Đơn giá | Thành tiền | Giao hàng; Subtotal, VAT, Total, điều kiện)
+## 5. BẢNG CHÀO GIÁ GỬI KHÁCH — song ngữ EN/VI, EN trước; cột Part Number trùng mã chi tiết của Design (theo mẫu machining-quotation: STT | Hạng mục | Vật liệu | Quy trình | SL | Đơn giá | Thành tiền | Giao hàng; Subtotal, VAT, Total, điều kiện)
 ## 6. Cần khách xác nhận (ảnh hưởng giá) — tham chiếu Q1.. của PM, thêm nếu phát hiện mới
 ## 7. Rủi ro chi phí & đề xuất tối ưu (cost risks / cost-down ideas)
 ## 8. Xử lý finding QA (chỉ ở vòng sửa)

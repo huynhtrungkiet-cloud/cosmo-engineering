@@ -20,6 +20,7 @@ from .prompts import build_system_prompt
 from .schemas import QAVerdict
 
 Logger = Callable[[str], None]
+PORTFOLIO_MARKER = "<<<PORTFOLIO>>>"
 
 
 @dataclass
@@ -172,10 +173,16 @@ class Pipeline:
             "project-manager",
             f"{shared}\n\n# KẾ HOẠCH\n\n{plan}\n\n# THIẾT KẾ ĐÃ DUYỆT (Rev {rev})\n\n{design}\n\n# DỰ TOÁN ĐÃ DUYỆT (Rev {rev})\n\n{cost}\n\n"
             f"# KẾT LUẬN QA (Rev {rev})\n\n{verdict.to_markdown()}\n\n"
-            "# YÊU CẦU\nChế độ 2 — TỔNG HỢP BÀN GIAO. "
+            "# YÊU CẦU\nChế độ 2 — TỔNG HỢP BÀN GIAO (EN/VI, EN trước). Sau tài liệu gửi khách, viết trang portfolio mở đầu bằng dòng `<<<PORTFOLIO>>>`. "
             + ("" if passed else "QA chưa PASS: liệt kê rõ các finding còn mở ở đầu khối NỘI BỘ và đánh dấu tài liệu là DỰ THẢO."),
         )
-        final_path = self._write(out_dir / "05-final.md", final)
+        # PM mode 2 appends the portfolio one-pager after a marker line (ce-standards §4).
+        final_doc, sep, portfolio = final.partition(PORTFOLIO_MARKER)
+        final_path = self._write(out_dir / "05-final.md", final_doc.rstrip() + "\n")
+        if sep:
+            self._write(out_dir / "06-portfolio.md", portfolio.lstrip())
+        else:
+            self.log("⚠ PM không trả về khối <<<PORTFOLIO>>>; không có 06-portfolio.md.")
 
         result = PipelineResult(out_dir, verdict, rev, passed, final_path, self.llm.usage, history)
         self._write(

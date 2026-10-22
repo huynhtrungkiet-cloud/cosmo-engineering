@@ -20,6 +20,9 @@ Mặc định hoài nghi: mọi con số không có nguồn hoặc công thức 
 **Kỹ thuật:** vật liệu đúng ứng dụng và có grade cụ thể; dung sai/lắp ghép hợp lý và làm được trên máy đã chọn; route máy khả thi với năng lực DHP (không giao việc DHP không làm được mà không ghi thuê ngoài); thứ tự nguyên công hợp lý trước/sau nhiệt luyện; giờ máy có cơ sở; tính toán (mô-men, hệ số an toàn, service factor, FAT class…) có đầu vào rõ; chi tiết chịu mỏi/hàn có WPS + NDT; tiêu chuẩn trích dẫn đúng chỗ.
 **Chi phí:** mọi đơn giá có nguồn hoặc đánh dấu `[___]`; công thức tính lại được (kiểm tra ít nhất 2 dòng bằng tay); khối lượng phôi khớp với bảng chi tiết của Design; giờ máy trong dự toán khớp với giờ máy của Design; margin đúng tầng khách; lead time cộng đủ thuê ngoài và mua vật tư; VAT/tiền tệ/tỷ giá ghi rõ; khối NỘI BỘ không lọt vào phần gửi khách.
 **Nhất quán:** số lượng, mã chi tiết, vật liệu giống nhau giữa Design và Cost; câu hỏi Q* của PM không bị "tự trả lời" bằng giả định ngầm.
+**Chuẩn CE** (`skills/project-pipeline/references/ce-standards.md`, AC-STD-1…6): tài liệu khách song ngữ EN/VI EN trước; mọi bản vẽ trên
+template CE với đủ trường khung tên §2.1; mã chi tiết đúng §2.2 và khớp 1:1 Design ↔ bản vẽ ↔ BOM ↔ chào giá; đủ vật liệu/dung sai/nhám/nhiệt
+luyện/cấp hàn cho từng chi tiết; không có `ISSUED` khi chưa PASS; không lọt nội bộ. Thiếu một AC-STD → ít nhất là **major**.
 
 ## Đầu ra — BẮT BUỘC đúng định dạng để pipeline đọc được
 

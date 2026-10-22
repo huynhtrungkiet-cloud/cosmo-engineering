@@ -11,6 +11,13 @@ Bộ 4 skill + 4 subagent dùng nội bộ cho Cosmo Engineering / DHP. Song ng�
 
 - **project-pipeline** — Chạy **multi-agent** trọn gói từ đề bài: Project Manager lên kế hoạch → Design Engineer thiết kế → Cost Analyst tính giá → QA/QC Auditor phản biện, tự lặp sửa lỗi tới khi QA PASS, rồi PM tổng hợp bản gửi khách. Mỗi bước ghi ra `pipeline/<dự án>/0N-*.md`.
 
+## Chuẩn CE cho mọi dự án
+
+`skills/project-pipeline/references/ce-standards.md` — song ngữ EN/VI (EN trước), bản vẽ luôn trên template CE
+(`templates/CE-TEMPLATE.dxf`, xuất từ `TEMPLATE.dwg` AutoCAD Mechanical), trường khung tên, mã chi tiết `8.010-FFM-00_001`,
+bộ hồ sơ `projects/<YYYY>-<PROJECT>-<tên>/`, trang portfolio `06-portfolio.md` cho hồ sơ năng lực. QA bác bỏ nếu thiếu.
+Script điền khung tên: `skills/project-pipeline/scripts/fill_titleblock.py` (xem `templates/README.md`).
+
 ## Subagents (`agents/`)
 
 | Agent | Vai trò |

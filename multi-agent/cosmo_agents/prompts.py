@@ -47,10 +47,21 @@ def load_skill_knowledge(cfg: PipelineConfig, skill: str) -> str:
     return "\n\n".join(parts)
 
 
+# Chuẩn CE (song ngữ, template bản vẽ, mã chi tiết, bộ hồ sơ) được nạp cho MỌI agent.
+CE_STANDARDS = Path("project-pipeline") / "references" / "ce-standards.md"
+
+
+def load_ce_standards(cfg: PipelineConfig) -> str:
+    path = cfg.skills_dir / CE_STANDARDS
+    if not path.exists():
+        return ""
+    return f"### skills/{CE_STANDARDS.as_posix()}\n\n{path.read_text(encoding='utf-8')}"
+
+
 def build_system_prompt(cfg: PipelineConfig, agent: str) -> str:
-    """System prompt = thân agent .md + kiến thức skill đi kèm. Ổn định giữa các lần gọi -> cache được."""
+    """System prompt = thân agent .md + chuẩn CE + kiến thức skill đi kèm. Ổn định giữa các lần gọi -> cache được."""
     body = load_agent_body(cfg, agent)
-    knowledge = [load_skill_knowledge(cfg, s) for s in SKILLS_FOR_AGENT.get(agent, [])]
+    knowledge = [load_ce_standards(cfg)] + [load_skill_knowledge(cfg, s) for s in SKILLS_FOR_AGENT.get(agent, [])]
     knowledge = [k for k in knowledge if k]
     if not knowledge:
         return body
